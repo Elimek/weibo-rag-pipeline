@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>获取微博 Cookie — 图文指南</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f7;color:#1d1d1f;padding:24px 16px;line-height:1.6}
+.container{max-width:640px;margin:0 auto}
+h1{font-size:26px;font-weight:600;margin-bottom:4px}
+h1 small{font-size:14px;font-weight:400;color:#86868b;display:block;margin-top:4px}
+.step{background:#fff;border-radius:14px;padding:20px;margin:16px 0;box-shadow:0 1px 3px rgba(0,0,0,0.06)}
+.step-num{background:#007aff;color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;margin-bottom:12px}
+.step h2{font-size:17px;font-weight:600;margin-bottom:6px}
+.step p{font-size:14px;color:#515154;margin-bottom:8px}
+.step .screenshot{background:#f0f0f2;border-radius:10px;padding:16px;margin:10px 0;font-family:'SF Mono',Menlo,monospace;font-size:13px;line-height:1.8;overflow-x:auto;white-space:nowrap}
+.step .screenshot .highlight{background:#ffe082;padding:2px 4px;border-radius:3px}
+.step .box{background:#f5f5f7;border-radius:8px;border:0.5px solid #e5e5e7;padding:12px;margin:8px 0;font-size:14px}
+.step .box strong{display:block;margin-bottom:4px;color:#1d1d1f}
+.step .box span{color:#86868b;font-size:13px}
+.footer{text-align:center;padding:24px 0;font-size:12px;color:#86868b}
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>🍪 获取微博 Cookie<small>2 分钟完成 · 只需要做一次</small></h1>
+
+<div class="step">
+  <div class="step-num">1</div>
+  <h2>打开微博并登录</h2>
+  <p>用 Chrome 或 Brave 浏览器打开下面链接，用你的账号登录：</p>
+  <div class="box">
+    <strong>🌐 打开链接</strong>
+    <span>https://weibo.com</span>
+  </div>
+  <p style="margin-top:8px;font-size:13px;color:#86868b">登录成功后保持在微博页面，不要关。</p>
+</div>
+
+<div class="step">
+  <div class="step-num">2</div>
+  <h2>打开开发者工具</h2>
+  <p>键盘上按一下 <strong>F12</strong> 键（或右键页面空白处 → 选择「检查」）</p>
+  <div class="screenshot">
+    ┌─────────────────────────────────────┐<br>
+    │ Elements │ Console │ <span class="highlight">Application</span> │ Sources │ ...<br>
+    └─────────────────────────────────────┘<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;↑ 点这个标签
+  </div>
+  <p style="font-size:13px;color:#86868b">顶部会出现一排标签，找到并点击 <strong>Application</strong></p>
+</div>
+
+<div class="step">
+  <div class="step-num">3</div>
+  <h2>找到 Cookie</h2>
+  <p>左侧菜单栏找到 <strong>Cookies</strong>，点开，选择 <strong>weibo.com</strong></p>
+  <div class="screenshot">
+    │<br>
+    │  ▶ Local Storage<br>
+    │  ▶ Session Storage<br>
+    │  ▶ <span class="highlight">Cookies</span><br>
+    │&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├ <span class="highlight">▶ weibo.com</span>   ← 点这里<br>
+    │&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├ m.weibo.cn<br>
+    │&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└ passport.weibo.com<br>
+    │
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">4</div>
+  <h2>复制 SUB 和 SUBP</h2>
+  <p>右侧会显示一个表格，找到这两行：</p>
+  <div class="screenshot">
+    Name │ Value<br>
+    ─────┼──────────────────────────────────────<br>
+    <span class="highlight">SUB</span>  │ <span class="highlight">_2A25...</span>        ← 双击这里复制<br>
+    <span class="highlight">SUBP</span> │ <span class="highlight">0033...</span>         ← 双击这里复制<br>
+    WBPSESS │ ...
+  </div>
+  <div class="box" style="margin-top:12px">
+    <strong>✍️ 操作步骤</strong>
+    <span>双击 SUB 那一行的 Value 单元格 → 按 Ctrl+C 复制 → 粘贴到下面<br>
+    同样操作 SUBP</span>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">5</div>
+  <h2>填入脚本</h2>
+  <p>打开本文件夹的 <strong>agent_1_scrape.py</strong>，找到顶部这几行：</p>
+  <div class="box" style="font-family:monospace;font-size:12px;line-height:1.6">
+MY_COOKIES = {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"SUB": "<strong style="color:#007aff">YOUR_SUB_COOKIE_HERE</strong>",  ← 替换成你复制的 SUB<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"SUBP": "<strong style="color:#007aff">YOUR_SUBP_COOKIE_HERE</strong>",  ← 替换成你复制的 SUBP<br>
+}
+  </div>
+  <p style="margin-top:8px;font-size:13px;color:#86868b">把 <code>YOUR_SUB_COOKIE_HERE</code> 和 <code>YOUR_SUBP_COOKIE_HERE</code> 替换成你刚才复制的值。</p>
+</div>
+
+<div class="step" style="border-left:3px solid #34c759">
+  <h2>✅ 完成！然后运行下面任意一个：</h2>
+  <div class="box" style="margin-top:8px">
+    ▶ <strong>首次使用（全自动）：</strong><span>双击「一键安装.bat」</span>
+  </div>
+  <div class="box">
+    ▶ <strong>已有数据，直接 Web 界面：</strong><span>双击「启动网页版.bat」</span>
+  </div>
+  <div class="box">
+    ▶ <strong>想用命令行：</strong><span>双击「查询.bat」</span>
+  </div>
+</div>
+
+<div class="footer">
+  💡 Cookie 会过期（大约几天到几周），过期后重新此步骤即可<br>
+  所有数据在你的电脑上，不会上传到任何地方
+</div>
+
+</div>
+</body>
+</html>
