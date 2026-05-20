@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>微博知识库 — 查询手册</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f7;color:#1d1d1f;line-height:1.6;padding:24px 16px}
+.container{max-width:720px;margin:0 auto}
+h1{font-size:28px;font-weight:600;margin-bottom:4px}
+h1 small{font-size:15px;font-weight:400;color:#86868b;display:block;margin-top:4px}
+h2{font-size:18px;font-weight:600;margin:32px 0 12px}
+h3{font-size:15px;font-weight:500;margin:20px 0 8px}
+.card{background:#fff;border-radius:14px;padding:20px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,0.06)}
+.scenario{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid #f0f0f0}
+.scenario:last-child{border:none}
+.icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.icon.purple{background:#f0edff;color:#5e3bd1}
+.icon.orange{background:#fff3e6;color:#c9640e}
+.icon.green{background:#e6f7e6;color:#1a8a1a}
+.icon.blue{background:#e6f0ff;color:#0a66c2}
+.icon.pink{background:#ffe6f0;color:#c2185b}
+.icon.teal{background:#e6f7f5;color:#0d7c6d}
+.scenario-content{flex:1;min-width:0}
+.scenario-content p{margin:0;font-size:13px;color:#86868b}
+.scenario-content code{display:block;background:#f5f5f7;padding:6px 10px;border-radius:6px;font-size:13px;margin-top:4px;font-family:'SF Mono',Menlo,monospace;color:#1d1d1f}
+.tag{display:inline-block;background:#f5f5f7;padding:2px 8px;border-radius:4px;font-size:11px;margin:2px 2px 0 0;color:#6e6e73}
+.command-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}
+.cmd-item{background:#f5f5f7;border-radius:8px;padding:10px 12px}
+.cmd-item code{font-size:13px;font-weight:500;display:block}
+.cmd-item span{font-size:12px;color:#86868b}
+.quick-start{background:#1d1d1f;color:#fff;border-radius:14px;padding:20px;margin-bottom:16px}
+.quick-start h2{color:#fff;margin-top:0}
+.quick-start ol{padding-left:18px;font-size:14px}
+.quick-start ol li{margin-bottom:8px;color:#d2d2d7}
+.quick-start ol li strong{color:#fff}
+.tip{background:#fff8e6;border-radius:10px;padding:12px 16px;font-size:13px;color:#8b6914;margin:12px 0}
+.footer{text-align:center;padding:24px 0;font-size:12px;color:#86868b}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <h1>🧠 微博记忆库查询手册<small>本地离线 · 语义搜索 × 精确时间定位</small></h1>
+
+  <div class="quick-start">
+    <h2>⚡ 三步上手</h2>
+    <ol>
+      <li><strong>双击</strong> <code>查询.bat</code>（打开黑色终端窗口）</li>
+      <li>直接输入问题按回车 → AI 自动搜索相关内容</li>
+      <li>或先输 <code>:date 2024-06-15</code> 锁定到某天，再搜索</li>
+    </ol>
+  </div>
+
+  <h2>🎯 四种搜索方式</h2>
+
+  <div class="card">
+    <div class="scenario">
+      <div class="icon blue">🔍</div>
+      <div class="scenario-content">
+        <p>语义搜索 — 找想法、情绪、关键词</p>
+        <code>找工作时候的心情</code>
+        <code>对某个行业的看法</code>
+        <code>周末一般做什么</code>
+      </div>
+    </div>
+    <div class="scenario">
+      <div class="icon purple">📅</div>
+      <div class="scenario-content">
+        <p>精确查某天 — 那天发了什么</p>
+        <code>:date 2024-06-15</code>
+        <div style="margin-top:4px"><span class="tag">不输问题=当天所有微博</span><span class="tag">输问题=当天范围内搜</span></div>
+      </div>
+    </div>
+    <div class="scenario">
+      <div class="icon green">⏰</div>
+      <div class="scenario-content">
+        <p>精确到小时</p>
+        <code>:date 2024-12-25</code>
+        <code>:hour 22</code>
+      </div>
+    </div>
+    <div class="scenario">
+      <div class="icon orange">🏷️</div>
+      <div class="scenario-content">
+        <p>按话题过滤</p>
+        <code>:topic 生活</code>
+        <p style="margin-top:4px">搜所有带 #生活# 标签的微博</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>💡 真实场景</h2>
+
+  <div class="card">
+    <div class="scenario">
+      <div class="icon pink">😢</div>
+      <div class="scenario-content">
+        <p><strong>查某年夏天的状态</strong></p>
+        <code>:year 2024 :month 8</code>
+        <code>心情</code>
+      </div>
+    </div>
+    <div class="scenario">
+      <div class="icon teal">💸</div>
+      <div class="scenario-content">
+        <p><strong>找消费相关的微博</strong></p>
+        <code>购物 省钱 推荐</code>
+        <p style="margin-top:4px;font-size:12px">不设时间 = 搜全部历史</p>
+      </div>
+    </div>
+    <div class="scenario">
+      <div class="icon purple">🎯</div>
+      <div class="scenario-content">
+        <p><strong>回顾刚开微博时发了什么</strong></p>
+        <code>:year 2024 :month 9</code>
+      </div>
+    </div>
+  </div>
+
+  <h2>⌨️ 命令速查</h2>
+
+  <div class="card">
+    <div class="command-grid">
+      <div class="cmd-item"><code>:date 2024-06-15</code><span>锁定某天</span></div>
+      <div class="cmd-item"><code>:hour 22</code><span>锁定小时</span></div>
+      <div class="cmd-item"><code>:year 2024</code><span>只看某年</span></div>
+      <div class="cmd-item"><code>:month 3</code><span>只看某月</span></div>
+      <div class="cmd-item"><code>:topic 生活</code><span>按话题筛选</span></div>
+      <div class="cmd-item"><code>:clear</code><span>清除筛选</span></div>
+      <div class="cmd-item"><code>:filters</code><span>查看当前筛选</span></div>
+      <div class="cmd-item"><code>:quit</code><span>退出</span></div>
+    </div>
+    <div class="tip">💡 先设时间/话题过滤，再打问题 — 只在筛选范围内搜索</div>
+  </div>
+
+  <h2>💬 交互示例</h2>
+  <div class="card" style="font-size:13px;line-height:1.8">
+    <p style="color:#86868b;margin-bottom:8px">终端中的实际对话：</p>
+    <code style="display:block;background:#1d1d1f;color:#b3d9ff;padding:12px 14px;border-radius:10px;white-space:pre-wrap">🔍 > :date 2024-06-15
+  [过滤：date=2024-06-15]
+
+🔍 > 那天的心情
+
+  找到 N 条结果：
+  ── #1 ──
+  时间：2024-06-15 22:30
+  [2024年06月15日 22:30] 原文内容...
+
+🔍 > :clear
+  已清除所有过滤条件
+
+🔍 > 旅行计划
+  （搜索全部历史）</code>
+  </div>
+
+  <div class="footer">🔒 所有数据本地存储 · ChromaDB + BAAI/bge-m3</div>
+
+</div>
+</body>
+</html>

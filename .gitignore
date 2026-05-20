@@ -1,0 +1,20 @@
+# 隐私数据（切勿提交）
+raw/
+processed/
+db/
+logs/
+cookies.json
+scrape_summary.json
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
+venv/
+.venv/
+
+# 系统
+.DS_Store
+Thumbs.db
+*.log
