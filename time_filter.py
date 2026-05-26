@@ -118,6 +118,18 @@ def parse_date_query(query_str: str) -> dict | None:
                 "day": int(m.group(3)),
             }
 
+        # ── 1.3b "YYYY年M月"（无日，纯年+月）───────────────────────────
+        # 匹配 "2025年5月", "2025年5月的微博", "2025年5月全部微博" 等
+        m = re.search(
+            r"(\d{4})\s*年\s*(\d{1,2})\s*月", normalized
+        )
+        if m:
+            return {
+                "type": "month_in_year",
+                "year": int(m.group(1)),
+                "month": int(m.group(2)),
+            }
+
         # ── 1.4 "上个月今天" ───────────────────────────────────────────
         if "上个月今天" in text:
             # 上个月的 year/month/day（day 可能超过上个月天数，后续需裁剪）
