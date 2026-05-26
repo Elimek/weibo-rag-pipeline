@@ -42,6 +42,12 @@ try:
 except ImportError:
     HAS_CRITIC = False
 
+# ─── LangGraph 搜索管线 ───────────────────────────────────────────────────────
+try:
+    from search_graph import search_via_graph, build_search_graph, HAS_LANGGRAPH
+except ImportError:
+    HAS_LANGGRAPH = False
+
 # ─── 路径 ────────────────────────────────────────────────────────────────────
 BASE = Path(__file__).parent
 DB_DIR = BASE / "db" / "chroma"
